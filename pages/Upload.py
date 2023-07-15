@@ -25,9 +25,11 @@ def submit():
                     project_data["edition"] = minecraft_edition
                     project_data["minecraft_version"] = minecraft_version
                     project_data["project_file"] = project_file.name
-                    with open(f"project_files/{project_file.name}", "xb") as f:
-                        f.write(project_file.getvalue())
-                    redisconnection.set(str(uuid.uuid4()), json.dumps(project_data))
-                    st.write("Uploaded Succesfully")
+                    try:
+                        with open(f"project_files/{project_file.name}", "xb") as f:
+                            f.write(project_file.getvalue())
+                        redisconnection.set(str(uuid.uuid4()), json.dumps(project_data))
+                    except:
+                        raise Exception("Project already exists")
 
 submit_button = st.button("Submit", on_click=submit)
