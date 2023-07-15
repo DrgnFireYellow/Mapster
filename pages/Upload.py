@@ -2,6 +2,7 @@ import streamlit as st
 import json
 with open("projects.json") as projectsfile:
     projects = json.load(projectsfile)
+st.write("# Upload")
 project_name = st.text_input("*Project Name:")
 project_description = st.text_area("*Project Description:")
 minecraft_edition = st.radio(
