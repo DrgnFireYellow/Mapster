@@ -1,7 +1,9 @@
 import streamlit as st
+import redis
+import uuid
 import json
-with open("projects.json") as projectsfile:
-    projects = json.load(projectsfile)
+st.set_page_config("Upload | Mapster", ":earth_americas:")
+redisconnection = redis.Redis()
 st.write("# Upload")
 project_name = st.text_input("*Project Name:")
 project_description = st.text_area("*Project Description:")
@@ -9,7 +11,7 @@ minecraft_edition = st.radio(
     "*Minecraft Edition:", ["Java", "Java w/ Forge", "Java w/ Fabric", "Bedrock"]
 )
 minecraft_version = st.text_input("*Minecraft Version:")
-project_file = st.file_uploader("*Project File:")
+project_file = st.file_uploader("*Project File:", ["zip", "mcworld"])
 project_data = {}
 
 
@@ -23,12 +25,9 @@ def submit():
                     project_data["edition"] = minecraft_edition
                     project_data["minecraft_version"] = minecraft_version
                     project_data["project_file"] = project_file.name
-                    with open(f"project_files/{project_file.name}", "wb") as f:
+                    with open(f"project_files/{project_file.name}", "xb") as f:
                         f.write(project_file.getvalue())
-                    projects.append(project_data)
-                    with open("projects.json", "w") as projectsfile:
-                        json.dump(projects, projectsfile)
+                    redisconnection.set(str(uuid.uuid4()), json.dumps(project_data))
                     st.write("Uploaded Succesfully")
-
 
 submit_button = st.button("Submit", on_click=submit)

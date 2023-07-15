@@ -1,10 +1,14 @@
 import streamlit as st
+import redis
 import json
+st.set_page_config("Browse | Mapster", ":earth_americas:")
+st.write("# Browse")
+redisconnection = redis.Redis()
 
-with open("projects.json") as projectsfile:
-    projects = json.load(projectsfile)
+projects = redisconnection.keys("*")
 
 for project in projects:
+    project = json.loads(redisconnection.get(project))
     st.write(f"""## {project['name']}
 ### {project['edition']} {project['minecraft_version']}
 {project['description']}""")
