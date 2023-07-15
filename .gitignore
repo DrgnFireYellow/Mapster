@@ -161,4 +161,4 @@ cython_debug/
 
 
 project_files/
-dump.rdb
+/dump.rdb
