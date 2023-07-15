@@ -1,2 +1,2 @@
 # Mapster
-A place to share Minecraft Maps
+A place to share and download Minecraft Maps
