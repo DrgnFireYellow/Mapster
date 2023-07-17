@@ -10,4 +10,5 @@ A place to share and download Minecraft Maps
 
 - [x] Basic Functionality
 - [x] Redis Database
+- [ ] Thumbnail support
 - [ ] Authentication
