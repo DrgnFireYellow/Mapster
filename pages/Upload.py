@@ -1,9 +1,13 @@
-import streamlit as st
-import redis
-import uuid
 import json
+import uuid
+
+import redis
+import streamlit as st
+
+import config
+
 st.set_page_config("Upload | Mapster", ":earth_americas:")
-redisconnection = redis.Redis()
+redisconnection = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
 st.write("# Upload")
 project_name = st.text_input("*Project Name:")
 project_description = st.text_area("*Project Description:")
@@ -31,5 +35,6 @@ def submit():
                         redisconnection.set(str(uuid.uuid4()), json.dumps(project_data))
                     except:
                         raise Exception("Project already exists")
+
 
 submit_button = st.button("Submit", on_click=submit)
