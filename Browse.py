@@ -9,7 +9,7 @@ st.set_page_config("Browse | Mapster", "mapster_logo_small.png")
 st.image("mapster_logo.png")
 redisconnection = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
 
-projects = redisconnection.keys("*")
+projects = redisconnection.scan_iter()
 
 for project in projects:
     project = json.loads(redisconnection.get(project))
