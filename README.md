@@ -1,4 +1,4 @@
-# Mapster
+![Mapster Logo](mapster_logo.png)
 A place to share and download Minecraft Maps
 
 ## Run Command

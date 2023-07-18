@@ -6,7 +6,7 @@ import streamlit as st
 
 import config
 
-st.set_page_config("Upload | Mapster", ":earth_americas:")
+st.set_page_config("Upload | Mapster", "mapster_logo_small.png")
 redisconnection = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
 st.write("# Upload")
 project_name = st.text_input("*Project Name:")
